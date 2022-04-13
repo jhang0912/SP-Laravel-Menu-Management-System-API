@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Managers\SignUpRequest;
+use App\Http\Requests\Managers\ManagerSignUpRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 
 class ManagerController extends Controller
 {
-    public function ManagerSignUp(SignUpRequest $request)
+    public function ManagerSignUp(ManagerSignUpRequest $request)
     {
     }
 }
