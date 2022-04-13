@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/manager', 'App\Http\Controllers\ManagerController@store');
+Route::post('manager', 'App\Http\Controllers\ManagerController@store');
+Route::post('login', 'App\Http\Controllers\ManagerController@login');

@@ -8,20 +8,16 @@ use App\Services\EncryptService;
 
 class ManagerService
 {
-    private $request;
     private $service;
 
-    public function __construct(StoreManagerRequest $request, EncryptService $service)
+    public function __construct(EncryptService $service)
     {
-        $this->request = $request;
         $this->service = $service;
     }
 
-    public function store(): void
+    public function store(string $name, string $account, string $password): void
     {
-        $name = $this->request->input('name');
-        $account = $this->request->input('account');
-        $password = $this->service->sha1($this->request->input('password'));
+        $password = $this->service->sha1($password);
         $managerId = $this->service->md5($account);
 
         Manager::create([
