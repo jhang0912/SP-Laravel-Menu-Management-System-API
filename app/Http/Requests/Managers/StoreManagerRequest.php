@@ -5,7 +5,7 @@ namespace App\Http\Requests\Managers;
 use App\Http\Requests\APIRequest;
 use Illuminate\Validation\Rules\Password;
 
-class ManagerSignUpRequest extends APIRequest
+class StoreManagerRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
