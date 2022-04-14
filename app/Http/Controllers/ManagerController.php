@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Managers\SignInManagerRequest;
 use App\Http\Requests\Managers\StoreManagerRequest;
+use App\Models\Manager;
+use App\Services\Managers\AuthManagerService;
 use App\Services\Managers\ManagerService;
 use Illuminate\Http\Request;
 
@@ -26,13 +28,20 @@ class ManagerController extends Controller
         return response(['status' => 1, 'msg' => '註冊成功']);
     }
 
-    public function signIn(SignInManagerRequest $request)
+    public function signIn(SignInManagerRequest $request, AuthManagerService $service)
     {
-        return 'login';
+        $account = $request->input('account');
+        $password = $request->input('password');
+
+        if ($service->authenticate($account, $password) === false) {
+            return response(['status' => 0, 'msg' => 'account 或 password 輸入錯誤，請重新輸入']);
+        }
+
+        $token = $service->IssueToken($account, $password);
+        return response(['status' => 1, 'msg' => '登入成功', 'data' => ['token' => $token]]);
     }
 
     public function signOut()
     {
-
     }
 }

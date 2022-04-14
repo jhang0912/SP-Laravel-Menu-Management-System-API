@@ -2,7 +2,6 @@
 
 namespace App\Services\Managers;
 
-use App\Http\Requests\Managers\StoreManagerRequest;
 use App\Models\Manager;
 use App\Services\EncryptService;
 
