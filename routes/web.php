@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('manager', 'App\Http\Controllers\ManagerController@store');
 Route::post('manager/signIn', 'App\Http\Controllers\ManagerController@signIn');
-Route::post('manager/signOut', 'App\Http\Controllers\ManagerController@signOut');
+Route::post('manager/signOut', 'App\Http\Controllers\ManagerController@signOut')->middleware('token');

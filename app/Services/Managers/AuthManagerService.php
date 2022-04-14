@@ -18,26 +18,42 @@ class AuthManagerService
 
     public function authenticate(string $account, string $password): bool
     {
-        return Manager::where([
-            'account' => $account,
-            'password' => $this->service->sha1($password)
-        ])->exists();
+        return Manager::where(['account' => $account, 'password' => $this->service->sha1($password)])->exists();
     }
 
-    public function IssueToken(string $account, string $password): string
+    public function authorization(string $token): bool
     {
-        $manager = Manager::where([
-            'account' => $account,
-            'password' => $this->service->sha1($password)
-        ])->get();
+        return ManagerLoginToken::where(['token' => $token])->exists();
+    }
 
-        $managerID = $manager->get(0)->managerID;
+    public function checkMultipleAuthenticate(string $account, string $password): bool
+    {
+        $managerID = Manager::select('managerID')->where(['account' => $account, 'password' => $this->service->sha1($password)])->get()->get(0)->managerID;
+
+        return !ManagerLoginToken::where('managerID', $managerID)->exists();
+    }
+
+    public function issueToken(string $account, string $password): string
+    {
+        $managerID = Manager::select('managerID')->where(['account' => $account, 'password' => $this->service->sha1($password)])->get()->get(0)->managerID;
+
         $token = $this->service->md5(Carbon::now() . $account);
 
-        ManagerLoginToken::create([
-            'token' => $token,
-            'managerID' => $managerID,
-        ]);
+        ManagerLoginToken::create(['token' => $token, 'managerID' => $managerID]);
+
+        return $token;
+    }
+
+    public function revokeToken(string $token): void
+    {
+        ManagerLoginToken::where('token', $token)->delete();
+    }
+
+    public function show(string $account, string $password): string
+    {
+        $managerID = Manager::select('managerID')->where(['account' => $account, 'password' => $this->service->sha1($password)])->get()->get(0)->managerID;
+
+        $token = ManagerLoginToken::select('token')->where('managerID', $managerID)->get()->get(0);
 
         return $token;
     }
