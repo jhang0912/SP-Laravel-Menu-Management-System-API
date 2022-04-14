@@ -36,14 +36,13 @@ class StoreManagerRequest extends APIRequest
     public function messages()
     {
         return [
-            'required' => ':attribute 為必填欄位，請重新填寫。',
-            'email' => ':attribute 格式錯誤(email)，請重新填寫。',
-            'unique' => 'account 已被使用，請重新填寫。',
-            'account.max' => ':attribute 長度大於最大限制(35)，請重新填寫。',
-            'name.max' => ':attribute 長度大於最大限制(25)，請重新填寫。',
-            'password.max' => ':attribute 長度大於最大限制(16)，請重新填寫。',
-            'min' => ':attribute 長度低於最小限制(8)，請重新填寫。',
-            'mixedCase' => ':attribute 最少需包含一大寫字母與一小寫字母，請重新填寫。'
+            'required' => ':attribute 為必填欄位，請重新輸入。',
+            'email' => ':attribute 格式錯誤(email)，請重新輸入。',
+            'unique' => 'account 已被使用，請重新輸入。',
+            'account.max' => ':attribute 長度大於最大限制(35)，請重新輸入。',
+            'name.max' => ':attribute 長度大於最大限制(25)，請重新輸入。',
+            'password.max' => ':attribute 長度大於最大限制(16)，請重新輸入。',
+            'min' => ':attribute 長度低於最小限制(8)，請重新輸入。'
         ];
     }
 }
