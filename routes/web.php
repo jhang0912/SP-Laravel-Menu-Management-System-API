@@ -17,5 +17,5 @@ Route::post('manager', 'App\Http\Controllers\ManagerController@store');
 Route::post('manager/signIn', 'App\Http\Controllers\ManagerController@signIn');
 Route::middleware('token')->group(function () {
     Route::post('manager/signOut', 'App\Http\Controllers\ManagerController@signOut');
-    Route::get('menu', 'ManagerController@store');
 });
+Route::get('menu', 'App\Http\Controllers\MenuController@index');
