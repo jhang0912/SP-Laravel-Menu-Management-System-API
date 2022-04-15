@@ -19,3 +19,4 @@ Route::middleware('token')->group(function () {
     Route::post('manager/signOut', 'App\Http\Controllers\ManagerController@signOut');
 });
 Route::get('menu', 'App\Http\Controllers\MenuController@index');
+Route::post('menu/store', 'App\Http\Controllers\MenuController@store');
