@@ -37,7 +37,7 @@ class ManagerController extends Controller
         }
 
         if ($service->checkMultipleAuthenticate($account, $password) === false) {
-            return response(['status' => 1, 'msg' => '登入成功', 'data' => $service->show($account, $password)]);
+            return response(['status' => 1, 'msg' => '登入成功', 'data' => ['token' => $service->show($account, $password)]]);
         }
 
         $token = $service->issueToken($account, $password);

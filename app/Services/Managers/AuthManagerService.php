@@ -53,7 +53,7 @@ class AuthManagerService
     {
         $managerID = Manager::select('managerID')->where(['account' => $account, 'password' => $this->service->sha1($password)])->get()->get(0)->managerID;
 
-        $token = ManagerLoginToken::select('token')->where('managerID', $managerID)->get()->get(0);
+        $token = ManagerLoginToken::select('token')->where('managerID', $managerID)->get()->get(0)->token;
 
         return $token;
     }
