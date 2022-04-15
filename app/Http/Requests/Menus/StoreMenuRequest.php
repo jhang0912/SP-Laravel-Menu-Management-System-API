@@ -24,7 +24,7 @@ class StoreMenuRequest extends APIRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:App\Models\MenuCategory,name', 'max:25'],
+            'name' => ['required', 'max:25'],
             'toggle' => ['required', 'boolean'],
             'menuItems.name' => ['required', 'unique:App\Models\MenuItem,name'],
             'menuItems.price' => ['required', 'numeric', 'min:0', 'max:999999', 'not_in:0'],

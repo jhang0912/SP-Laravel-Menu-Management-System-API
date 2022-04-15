@@ -21,6 +21,14 @@ class MenuCategory extends Model
 
     protected $dateFormat = 'U';
 
+    protected $hidden =[
+        'id',
+        'orderBy',
+        'toggle',
+        'createdTime',
+        'updatedTime'
+    ];
+
     protected $fillable = [
         'categoryID',
         'name',

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Repositories\Interfaces\MenuCategoryRepositoryInterface;
+use App\Repositories\Interfaces\MenuItemRepositoryInterface;
 use App\Repositories\MenuCategoryRepository;
+use App\Repositories\MenuItemRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(MenuCategoryRepositoryInterface::class, MenuCategoryRepository::class);
+        $this->app->bind(MenuItemRepositoryInterface::class, MenuItemRepository::class);
     }
 
     /**

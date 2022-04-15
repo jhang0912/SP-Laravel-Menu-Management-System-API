@@ -21,6 +21,16 @@ class MenuItem extends Model
 
     protected $dateFormat = 'U';
 
+    protected $hidden = [
+        'id',
+        'itemID',
+        'categoryID',
+        'orderBy',
+        'toggle',
+        'createdTime',
+        'updatedTime'
+    ];
+
     protected $fillable = [
         'itemID',
         'categoryID',
@@ -34,6 +44,6 @@ class MenuItem extends Model
 
     public function menuCategorie()
     {
-        return $this->belongsTo(menuCategorie::class);
+        return $this->belongsTo(MenuCategory::class, 'categoryID', 'categoryID');
     }
 }
