@@ -11,5 +11,5 @@ interface MenuItemRepositoryInterface
 
     public function show(string $columnName);
 
-    public function store(string $itemID, string $categoryID, string $name, int $price, int $orderBy, int $toggle);
+    public function store(string $itemID, string $categoryID, array $item, int $orderBy);
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Menus\StoreMenuRequest;
 use App\Services\Menus\MenuService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 
 class MenuController extends Controller
@@ -18,11 +19,9 @@ class MenuController extends Controller
     {
         $name = $request->input('name');
         $toggle = $request->input('toggle');
-        $itemName = $request->input('menuItems.name');
-        $itemPrice = $request->input('menuItems.price');
-        $itemToggle = $request->input('menuItems.toggle');
+        $items = $request->input('menuItems');
 
-        $service->store($name, $toggle, $itemName, $itemPrice, $itemToggle);
+        $service->store($name, $toggle, $items);
 
         return response(['status' => 1, 'msg' => '菜單建立成功']);
     }

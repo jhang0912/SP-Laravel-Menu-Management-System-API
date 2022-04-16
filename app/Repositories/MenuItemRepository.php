@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\MenuItem;
 use App\Repositories\Interfaces\MenuItemRepositoryInterface;
+use Illuminate\Support\Arr;
 
 class MenuItemRepository implements MenuItemRepositoryInterface
 {
@@ -22,15 +23,15 @@ class MenuItemRepository implements MenuItemRepositoryInterface
         return MenuItem::find($id);
     }
 
-    public function store(string $itemID, string $categoryID, string $name, int $price, int $orderBy, int $toggle)
+    public function store(string $itemID, string $categoryID, array $item, int $orderBy)
     {
         MenuItem::create([
             'itemID' => $itemID,
             'categoryID' => $categoryID,
-            'name' => $name,
-            'price' => $price,
+            'name' => Arr::get($item, 'name'),
+            'price' => Arr::get($item, 'price'),
             'orderBy' => $orderBy,
-            'toggle' => $toggle
+            'toggle' => Arr::get($item, 'toggle')
         ]);
     }
 }

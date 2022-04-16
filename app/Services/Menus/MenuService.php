@@ -5,6 +5,8 @@ namespace App\Services\Menus;
 use App\Repositories\Interfaces\MenuCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MenuItemRepositoryInterface;
 use App\Services\EncryptService;
+use Illuminate\Support\Arr;
+
 
 class MenuService
 {
@@ -24,20 +26,21 @@ class MenuService
         return $this->menuCategoryRepository->index();
     }
 
-    public function store(string $name, int $toggle, string $itemName, int $itemPrice, int $itemToggle)
+    public function store(string $name, int $toggle, array $items)
     {
         if ($this->menuCategoryRepository->exists('name', $name)) {
             $categoryID = $this->menuCategoryRepository->show('name', $name)->get(0)->categoryID;
         } else {
             $categoryID = $this->service->md5($name);
             $orderBy = $this->menuCategoryRepository->max('orderBy') + 1;
-
             $this->menuCategoryRepository->store($categoryID, $name, $orderBy, $toggle);
         }
 
-        $itemID = $this->service->md5($itemName);
-        $orderBy = $this->menuItemRepository->max('orderBy') + 1;
+        foreach ($items as $item) {
+            $itemID = $this->service->md5(Arr::get($item, 'name'));
+            $orderBy = $this->menuItemRepository->max('orderBy') + 1;
+            $this->menuItemRepository->store($itemID, $categoryID, $item, $orderBy);
+        }
 
-        $this->menuItemRepository->store($itemID, $categoryID, $itemName, $itemPrice, $orderBy, $itemToggle);
     }
 }
