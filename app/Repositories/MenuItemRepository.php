@@ -8,6 +8,21 @@ use Illuminate\Support\Arr;
 
 class MenuItemRepository implements MenuItemRepositoryInterface
 {
+    public function destory(string $categoryID)
+    {
+        MenuItem::where('categoryID', $categoryID)->delete();
+    }
+
+    public function destoryByItemID(string $categoryID, array $itemID)
+    {
+        MenuItem::where('categoryID', $categoryID)->whereNotIn('itemID', $itemID)->delete();
+    }
+
+    public function exists(string $columnName, string $data)
+    {
+        return MenuItem::where($columnName, $data)->exists();
+    }
+
     public function index()
     {
         return MenuItem::get();

@@ -4,6 +4,11 @@ namespace App\Repositories\Interfaces;
 
 interface MenuItemRepositoryInterface
 {
+    public function destory(string $categoryID);
+
+    public function destoryByItemID(string $categoryID, array $itemID);
+
+    public function exists(string $columnName, string $data);
 
     public function index();
 

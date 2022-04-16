@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class MenuCategoryRepository implements MenuCategoryRepositoryInterface
 {
+    public function destory(string $categoryID)
+    {
+        MenuCategory::where('categoryID', $categoryID)->delete();
+    }
+
+    public function exists(string $columnName, string $data)
+    {
+        return MenuCategory::where($columnName, $data)->exists();
+    }
+
     public function index()
     {
         return MenuCategory::with(['menuItems' => function ($query) {
@@ -19,11 +29,6 @@ class MenuCategoryRepository implements MenuCategoryRepositoryInterface
     public function max(string $columnName)
     {
         return MenuCategory::max($columnName);
-    }
-
-    public function exists(string $columnName, string $data)
-    {
-        return MenuCategory::where($columnName, $data)->exists();
     }
 
     public function show(string $columnName, string $data)

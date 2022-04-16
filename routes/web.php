@@ -21,3 +21,4 @@ Route::middleware('jsonRequest')->group(function () {
 Route::get('menu', 'App\Http\Controllers\MenuController@index');
 Route::post('menu/store', 'App\Http\Controllers\MenuController@store');
 Route::post('menu/update', 'App\Http\Controllers\MenuController@update');
+Route::post('menu/destory', 'App\Http\Controllers\MenuController@destory');

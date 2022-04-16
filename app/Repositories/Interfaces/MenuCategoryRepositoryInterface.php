@@ -4,6 +4,7 @@ namespace App\Repositories\Interfaces;
 
 interface MenuCategoryRepositoryInterface
 {
+    public function destory(string $categoryID);
 
     public function exists(string $columnName, string $data);
 

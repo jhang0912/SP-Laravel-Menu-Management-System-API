@@ -21,6 +21,12 @@ class MenuService
         $this->service = $service;
     }
 
+    public function destory(string $categoryID)
+    {
+        $this->menuItemRepository->destory($categoryID);
+        $this->menuCategoryRepository->destory($categoryID);
+    }
+
     public function index()
     {
         return $this->menuCategoryRepository->index();
@@ -49,13 +55,20 @@ class MenuService
 
         foreach ($items as $item) {
             if (Arr::get($item, 'itemID') == null) {
-                $itemID = $this->service->md5(Arr::get($item, 'name'));
-                $orderBy = $this->menuItemRepository->max('orderBy') + 1;
-                $this->menuItemRepository->store($itemID, $categoryID, $item, $orderBy);
+                if (!$this->menuItemRepository->exists('name', Arr::get($item, 'name'))) {
+                    $itemID = $this->service->md5(Arr::get($item, 'name'));
+                    $orderBy = $this->menuItemRepository->max('orderBy') + 1;
+                    $this->menuItemRepository->store($itemID, $categoryID, $item, $orderBy);
+                } else {
+                    continue;
+                }
             } else {
                 $itemID = Arr::get($item, 'itemID');
                 $this->menuItemRepository->update($itemID, $item);
             }
         }
+
+        $itemID = Arr::pluck($items, 'itemID');
+        $this->menuItemRepository->destoryByItemID($categoryID, $itemID);
     }
 }
