@@ -14,4 +14,6 @@ interface MenuCategoryRepositoryInterface
     public function show(string $columnName, string $data);
 
     public function store(string $categoryID, string $name, int $orderBy, int $toggle);
+
+    public function update(string $categoryID, string $name, int $toggle);
 }

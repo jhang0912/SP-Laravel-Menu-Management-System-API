@@ -12,4 +12,6 @@ interface MenuItemRepositoryInterface
     public function show(string $columnName);
 
     public function store(string $itemID, string $categoryID, array $item, int $orderBy);
+
+    public function update(string $itemID, array $item);
 }

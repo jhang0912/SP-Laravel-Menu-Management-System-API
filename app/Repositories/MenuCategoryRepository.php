@@ -40,4 +40,12 @@ class MenuCategoryRepository implements MenuCategoryRepositoryInterface
             'toggle' => $toggle
         ]);
     }
+
+    public function update(string $categoryID, string $name, int $toggle)
+    {
+        MenuCategory::where('categoryID', $categoryID)->update([
+            'name' => $name,
+            'toggle' => $toggle
+        ]);
+    }
 }

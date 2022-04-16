@@ -41,6 +41,21 @@ class MenuService
             $orderBy = $this->menuItemRepository->max('orderBy') + 1;
             $this->menuItemRepository->store($itemID, $categoryID, $item, $orderBy);
         }
+    }
 
+    public function update(string $categoryID, string $name, int $toggle, array $items)
+    {
+        $this->menuCategoryRepository->update($categoryID, $name, $toggle);
+
+        foreach ($items as $item) {
+            if (Arr::get($item, 'itemID') == null) {
+                $itemID = $this->service->md5(Arr::get($item, 'name'));
+                $orderBy = $this->menuItemRepository->max('orderBy') + 1;
+                $this->menuItemRepository->store($itemID, $categoryID, $item, $orderBy);
+            } else {
+                $itemID = Arr::get($item, 'itemID');
+                $this->menuItemRepository->update($itemID, $item);
+            }
+        }
     }
 }

@@ -34,4 +34,13 @@ class MenuItemRepository implements MenuItemRepositoryInterface
             'toggle' => Arr::get($item, 'toggle')
         ]);
     }
+
+    public function update(string $itemID, array $item)
+    {
+        MenuItem::where('itemID', $itemID)->update([
+            'name' => Arr::get($item, 'name'),
+            'price' => Arr::get($item, 'price'),
+            'toggle' => Arr::get($item, 'toggle')
+        ]);
+    }
 }
