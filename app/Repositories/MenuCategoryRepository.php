@@ -5,12 +5,15 @@ namespace App\Repositories;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Repositories\Interfaces\MenuCategoryRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class MenuCategoryRepository implements MenuCategoryRepositoryInterface
 {
     public function index()
     {
-        return MenuCategory::with('menuItems')->orderBy('orderBy')->get();
+        return MenuCategory::with(['menuItems' => function ($query) {
+            $query->where('toggle', 1)->orderBy('orderBy');
+        }])->where('toggle', 1)->orderBy('orderBy')->get();
     }
 
     public function max(string $columnName)
