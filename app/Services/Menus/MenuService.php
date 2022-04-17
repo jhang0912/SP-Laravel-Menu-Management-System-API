@@ -2,11 +2,12 @@
 
 namespace App\Services\Menus;
 
+use App\Models\MenuItem;
 use App\Repositories\Interfaces\MenuCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MenuItemRepositoryInterface;
 use App\Services\EncryptService;
 use Illuminate\Support\Arr;
-
+use Illuminate\Support\Facades\DB;
 
 class MenuService
 {
@@ -37,13 +38,13 @@ class MenuService
         if ($this->menuCategoryRepository->exists('name', $name)) {
             $categoryID = $this->menuCategoryRepository->show('name', $name)->get(0)->categoryID;
         } else {
-            $categoryID = $this->service->md5($name);
+            $categoryID = $this->service->md5WithTime($name);
             $orderBy = $this->menuCategoryRepository->max('orderBy') + 1;
             $this->menuCategoryRepository->store($categoryID, $name, $orderBy, $toggle);
         }
 
         foreach ($items as $item) {
-            $itemID = $this->service->md5(Arr::get($item, 'name'));
+            $itemID = $this->service->md5WithTime(Arr::get($item, 'name'));
             $orderBy = $this->menuItemRepository->max('orderBy') + 1;
             $this->menuItemRepository->store($itemID, $categoryID, $item, $orderBy);
         }
@@ -53,10 +54,14 @@ class MenuService
     {
         $this->menuCategoryRepository->update($categoryID, $name, $toggle);
 
+        $itemIDs = Arr::pluck($items, 'itemID');
+        $itemIDs = Arr::whereNotNull($itemIDs);
+        $this->menuItemRepository->destoryNotIn($categoryID, 'itemID', $itemIDs);
+
         foreach ($items as $item) {
             if (Arr::get($item, 'itemID') == null) {
                 if (!$this->menuItemRepository->exists('name', Arr::get($item, 'name'))) {
-                    $itemID = $this->service->md5(Arr::get($item, 'name'));
+                    $itemID = $this->service->md5WithTime(Arr::get($item, 'name'));
                     $orderBy = $this->menuItemRepository->max('orderBy') + 1;
                     $this->menuItemRepository->store($itemID, $categoryID, $item, $orderBy);
                 } else {
@@ -67,8 +72,5 @@ class MenuService
                 $this->menuItemRepository->update($itemID, $item);
             }
         }
-
-        $itemID = Arr::pluck($items, 'itemID');
-        $this->menuItemRepository->destoryByItemID($categoryID, $itemID);
     }
 }

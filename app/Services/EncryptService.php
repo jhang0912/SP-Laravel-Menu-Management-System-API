@@ -12,7 +12,17 @@ class EncryptService
         return md5($data . Carbon::now());
     }
 
+    public function md5WithTime(string $data)
+    {
+        return md5($data . Carbon::now());
+    }
+
     public function sha1(string $data)
+    {
+        return sha1($data . Carbon::now());
+    }
+
+    public function sha1WithTime(string $data)
     {
         return sha1($data . Carbon::now());
     }

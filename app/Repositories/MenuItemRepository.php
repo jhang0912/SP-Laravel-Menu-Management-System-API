@@ -13,9 +13,9 @@ class MenuItemRepository implements MenuItemRepositoryInterface
         MenuItem::where('categoryID', $categoryID)->delete();
     }
 
-    public function destoryByItemID(string $categoryID, array $itemID)
+    public function destoryNotIn(string $categoryID, string $columnName, array $data)
     {
-        MenuItem::where('categoryID', $categoryID)->whereNotIn('itemID', $itemID)->delete();
+        MenuItem::where('categoryID', $categoryID)->whereNotIn($columnName, $data)->delete();
     }
 
     public function exists(string $columnName, string $data)

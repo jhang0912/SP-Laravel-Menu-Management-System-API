@@ -6,7 +6,7 @@ interface MenuItemRepositoryInterface
 {
     public function destory(string $categoryID);
 
-    public function destoryByItemID(string $categoryID, array $itemID);
+    public function destoryNotIn(string $categoryID, string $columnName, array $data);
 
     public function exists(string $columnName, string $data);
 
