@@ -25,11 +25,11 @@ class StoreManagerRequest extends APIRequest
     public function rules()
     {
         return [
-            'account' => ['required', 'email:rfc,dns', 'unique:App\Models\Manager,account', 'max:35'],
-            'password' => ['required', 'max:16', Password::min(8)
+            'account' => ['required', 'string', 'email:rfc,dns', 'unique:App\Models\Manager,account', 'max:35'],
+            'password' => ['required', 'string', 'max:16', Password::min(8)
                 ->mixedCase()
                 ->numbers()],
-            'name' => ['required', 'max:25']
+            'name' => ['required', 'string', 'max:25']
         ];
     }
 
@@ -37,6 +37,7 @@ class StoreManagerRequest extends APIRequest
     {
         return [
             'required' => ':attribute 為必填欄位，請重新輸入',
+            'string' => ':attribute 格式錯誤(string)，請重新輸入',
             'email' => ':attribute 格式錯誤(email)，請重新輸入',
             'unique' => 'account 已被使用，請重新輸入',
             'account.max' => ':attribute 長度大於最大限制(35)，請重新輸入',

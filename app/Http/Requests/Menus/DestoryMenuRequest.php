@@ -24,7 +24,7 @@ class DestoryMenuRequest extends APIRequest
     public function rules()
     {
         return [
-            'categoryID' => ['required', 'exists:App\Models\MenuCategory,categoryID']
+            'categoryID' => ['required', 'string', 'exists:App\Models\MenuCategory,categoryID']
         ];
     }
 
@@ -32,6 +32,7 @@ class DestoryMenuRequest extends APIRequest
     {
         return [
             'required' => ':attribute 為必填欄位，請重新輸入',
+            'string' => ':attribute 格式錯誤(string)，請重新輸入',
             'exists' => ':attribute 輸入錯誤，請重新輸入',
         ];
     }

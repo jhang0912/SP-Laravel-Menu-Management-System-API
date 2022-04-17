@@ -9,7 +9,7 @@ class EncryptService
 {
     public function md5(string $data)
     {
-        return md5($data . Carbon::now());
+        return md5($data);
     }
 
     public function md5WithTime(string $data)
@@ -19,11 +19,6 @@ class EncryptService
 
     public function sha1(string $data)
     {
-        return sha1($data . Carbon::now());
-    }
-
-    public function sha1WithTime(string $data)
-    {
-        return sha1($data . Carbon::now());
+        return sha1($data);
     }
 }

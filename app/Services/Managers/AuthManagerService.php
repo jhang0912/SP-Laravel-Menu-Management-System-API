@@ -37,7 +37,7 @@ class AuthManagerService
     {
         $managerID = Manager::select('managerID')->where(['account' => $account, 'password' => $this->service->sha1($password)])->get()->get(0)->managerID;
 
-        $token = $this->service->md5(Carbon::now() . $account);
+        $token = $this->service->md5WithTime($account);
 
         ManagerLoginToken::create(['token' => $token, 'managerID' => $managerID]);
 

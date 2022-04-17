@@ -24,10 +24,10 @@ class StoreMenuRequest extends APIRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:25'],
+            'name' => ['required', 'string', 'max:25'],
             'toggle' => ['required', 'boolean'],
             'menuItems' => ['required', 'array'],
-            'menuItems.*.name' => ['required', 'unique:App\Models\MenuItem,name'],
+            'menuItems.*.name' => ['required', 'string', 'unique:App\Models\MenuItem,name'],
             'menuItems.*.price' => ['required', 'numeric', 'min:0', 'max:999999', 'not_in:0'],
             'menuItems.*.toggle' => ['required', 'boolean']
         ];
@@ -37,6 +37,7 @@ class StoreMenuRequest extends APIRequest
     {
         return [
             'required' => ':attribute 為必填欄位，請重新輸入',
+            'string' => ':attribute 格式錯誤(string)，請重新輸入',
             'unique' => ':attribute 已經存在，請重新輸入',
             'name.max' => ':attribute 長度大於最大限制(25)，請重新輸入',
             'price.max' => ':attribute 長度大於最大限制(999999)，請重新輸入',

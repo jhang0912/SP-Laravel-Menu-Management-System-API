@@ -25,8 +25,8 @@ class SignInManagerRequest extends APIRequest
     public function rules()
     {
         return [
-            'account' => ['required', 'email:rfc,dns', 'exists:App\Models\Manager,account'],
-            'password' => ['required']
+            'account' => ['required', 'string', 'email:rfc,dns', 'exists:App\Models\Manager,account'],
+            'password' => ['required', 'string']
         ];
     }
 
@@ -35,6 +35,7 @@ class SignInManagerRequest extends APIRequest
         return [
             'required' => ':attribute 為必填欄位，請重新輸入',
             'email' => 'account 或 password 輸入錯誤，請重新輸入',
+            'string' => ':attribute 格式錯誤(string)，請重新輸入',
             'exists' => 'account 或 password 輸入錯誤，請重新輸入'
         ];
     }

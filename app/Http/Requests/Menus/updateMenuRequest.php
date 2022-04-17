@@ -24,12 +24,12 @@ class UpdateMenuRequest extends APIRequest
     public function rules()
     {
         return [
-            'categoryID' => ['required', 'exists:App\Models\MenuCategory,categoryID'],
-            'name' => ['required', 'max:25'],
+            'categoryID' => ['required', 'string', 'exists:App\Models\MenuCategory,categoryID'],
+            'name' => ['required', 'string', 'max:25'],
             'toggle' => ['required', 'boolean'],
             'menuItems' => ['required', 'array'],
-            'menuItems.*.itemID' => ['nullable', 'exists:App\Models\MenuItem,itemID'],
-            'menuItems.*.name' => ['required'],
+            'menuItems.*.itemID' => ['nullable', 'string', 'exists:App\Models\MenuItem,itemID'],
+            'menuItems.*.name' => ['required', 'string'],
             'menuItems.*.price' => ['required', 'numeric', 'min:0', 'max:999999', 'not_in:0'],
             'menuItems.*.toggle' => ['required', 'boolean']
         ];
@@ -39,6 +39,7 @@ class UpdateMenuRequest extends APIRequest
     {
         return [
             'required' => ':attribute 為必填欄位，請重新輸入',
+            'string' => ':attribute 格式錯誤(string)，請重新輸入',
             'exists' => ':attribute 輸入錯誤，請重新輸入',
             'name.max' => ':attribute 長度大於最大限制(25)，請重新輸入',
             'price.max' => ':attribute 長度大於最大限制(999999)，請重新輸入',
