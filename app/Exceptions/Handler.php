@@ -41,7 +41,6 @@ class Handler extends ExceptionHandler
                 'method' => request()->getMethod(),
                 'uri' => request()->getPathInfo(),
                 'message' => $exception->getMessage(),
-                'trace' => $exception->getTraceAsString()
             ]);
         });
     }

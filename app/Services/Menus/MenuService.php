@@ -2,12 +2,10 @@
 
 namespace App\Services\Menus;
 
-use App\Models\MenuItem;
 use App\Repositories\Interfaces\MenuCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MenuItemRepositoryInterface;
 use App\Services\EncryptService;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 
 class MenuService
 {
@@ -22,18 +20,18 @@ class MenuService
         $this->service = $service;
     }
 
-    public function destory(string $categoryID)
+    public function destory(string $categoryID): void
     {
         $this->menuItemRepository->destory($categoryID);
         $this->menuCategoryRepository->destory($categoryID);
     }
 
-    public function index()
+    public function index(): object
     {
         return $this->menuCategoryRepository->index();
     }
 
-    public function store(string $name, int $toggle, array $items)
+    public function store(string $name, int $toggle, array $items): void
     {
         if ($this->menuCategoryRepository->exists('name', $name)) {
             $categoryID = $this->menuCategoryRepository->show('name', $name)->get(0)->categoryID;
@@ -50,7 +48,7 @@ class MenuService
         }
     }
 
-    public function update(string $categoryID, string $name, int $toggle, array $items)
+    public function update(string $categoryID, string $name, int $toggle, array $items): void
     {
         $this->menuCategoryRepository->update($categoryID, $name, $toggle);
 

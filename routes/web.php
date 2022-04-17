@@ -24,4 +24,7 @@ Route::middleware('jsonRequest')->group(function () {
         Route::post('menu/update', 'App\Http\Controllers\MenuController@update');
         Route::post('menu/destory', 'App\Http\Controllers\MenuController@destory');
     });
+
+    Route::fallback('App\Http\Controllers\ErrorHandleController@NotFound');
 });
+
