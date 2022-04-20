@@ -77,7 +77,7 @@ menuItmes 說明：
 |categoryID|菜單種類ID|YES||
 
 ## 資料庫規劃
-<img src="https://i.imgur.com/KTEUs9J.jpg" width="700">
+<img src="https://i.imgur.com/KTEUs9J.jpg" width="1000">
 
 
 
