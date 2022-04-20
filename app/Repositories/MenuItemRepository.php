@@ -8,37 +8,37 @@ use Illuminate\Support\Arr;
 
 class MenuItemRepository implements MenuItemRepositoryInterface
 {
-    public function destory(string $categoryID)
+    public function destory(string $categoryID): void
     {
         MenuItem::where('categoryID', $categoryID)->delete();
     }
 
-    public function destoryNotIn(string $categoryID, string $columnName, array $data)
+    public function destoryNotIn(string $categoryID, string $columnName, array $data): void
     {
         MenuItem::where('categoryID', $categoryID)->whereNotIn($columnName, $data)->delete();
     }
 
-    public function exists(string $columnName, string $data)
+    public function exists(string $columnName, string $data): bool
     {
         return MenuItem::where($columnName, $data)->exists();
     }
 
-    public function index()
+    public function index(): object
     {
         return MenuItem::get();
     }
 
-    public function max(string $columnName)
+    public function max(string $columnName): ?int
     {
         return MenuItem::max($columnName);
     }
 
-    public function show(string $id)
+    public function show(string $id): object
     {
         return MenuItem::find($id);
     }
 
-    public function store(string $itemID, string $categoryID, array $item, int $orderBy)
+    public function store(string $itemID, string $categoryID, array $item, int $orderBy): void
     {
         MenuItem::create([
             'itemID' => $itemID,
@@ -50,7 +50,7 @@ class MenuItemRepository implements MenuItemRepositoryInterface
         ]);
     }
 
-    public function update(string $itemID, array $item)
+    public function update(string $itemID, array $item): void
     {
         MenuItem::where('itemID', $itemID)->update([
             'name' => Arr::get($item, 'name'),

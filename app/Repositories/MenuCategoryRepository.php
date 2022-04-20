@@ -26,7 +26,7 @@ class MenuCategoryRepository implements MenuCategoryRepositoryInterface
         }])->where('toggle', 1)->orderBy('orderBy')->get();
     }
 
-    public function max(string $columnName): int
+    public function max(string $columnName): ?int
     {
         return MenuCategory::max($columnName);
     }
