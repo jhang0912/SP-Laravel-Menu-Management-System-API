@@ -7,58 +7,82 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About 「Menu Management System API」
+本專案以提供餐廳管理菜單為目標，管理員可利用此系統進行菜單的相關編輯，包含預覽、新增、修改、刪除菜單種類及旗下品項，達到可以即時根據資料庫變更菜單內容。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 快速入門
+|方法|網址|功能說明|是否需登入才可操作|
+|--|--|--|--|
+|POST|manager|註冊管理員|NO
+|POST|manager/signIn|管理員登入|NO
+|POST|manager/signOut|管理員登出|YES
+|GET|menu|瀏覽菜單|YES|
+|POST|menu/store|新增菜單|YES
+|POST|menu/update|編輯菜單|YES
+|POST|menu/destory|刪除菜單|YES
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 使用說明
+- 請求格式必須為 JSON 格式
+- 進行與菜單相關的操作時必須先登入會員取得「登入Token」並將其放入Header -> Authoriztion：Bearer 進行身分驗證
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 註冊管理員
+|欄位|欄位說明|是否必填|備註|
+|--|--|--|--|
+|account|帳號|YES|需為 Email 格式|
+|password|密碼|YES|長度8~16 / 必須最少包含一個大寫字母、一個小寫字母、一個數字|
+|name|姓名|YES||
 
-## Learning Laravel
+### 管理員登入
+|欄位|欄位說明|是否必填|備註|
+|--|--|--|--|
+|account|帳號|YES||
+|password|密碼|YES||
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 管理員登出
+|欄位|欄位說明|是否必填|備註|
+|--|--|--|--|
+|Header -> Authoriztion：Bearer|登入Token|YES|
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 新增菜單
+|欄位|欄位說明|是否必填|備註|
+|--|--|--|--|
+|name|菜單種類|YES|EX：漢堡|
+|toggle|是否上架|YES|只能為0(下架)或1(上架)的數字|
+|menuItems|旗下品項|YES|陣列格式|
+menuItmes 說明：
+|欄位|欄位說明|是否必填|備註|
+|name|菜單品項|YES|EX：火腿漢堡|
+|price|價錢|YES|必須為正整數|
+|toggle|是否上架|YES|只能為0(下架)或1(上架)的數字|
 
-## Laravel Sponsors
+### 編輯菜單
+- 此功能會比對資料庫中 itemID 存在而請求中不存在的 itemID ，將不存在的菜單品項刪除
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+|欄位|欄位說明|是否必填|備註|
+|--|--|--|--|
+|categoryID|菜單種類ID|YES||
+|name|菜單種類|YES|EX：漢堡|
+|toggle|是否上架|YES|只能為0(下架)或1(上架)的數字|
+|menuItems|旗下品項|YES|陣列格式|
+menuItmes 說明：
+|欄位|欄位說明|是否必填|備註|
+|itemID|菜單品項ID|NO|若有則代表編輯舊有項目，無則代表新增新項目|
+|name|菜單品項|YES|EX：火腿漢堡|
+|price|價錢|YES|必須為正整數|
+|toggle|是否上架|YES|只能為0(下架)或1(上架)的數字|
 
-### Premium Partners
+### 刪除菜單
+|欄位|欄位說明|是否必填|備註|
+|--|--|--|--|
+|categoryID|菜單種類ID|YES||
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## 資料庫規劃
+<img src="https://i.imgur.com/KTEUs9J.jpg" width="700">
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
