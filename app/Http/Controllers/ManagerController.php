@@ -21,10 +21,10 @@ class ManagerController extends Controller
         } catch (\Throwable $exception) {
             report($exception);
 
-            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員']);
+            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員'], 500);
         }
 
-        return response(['status' => 1, 'msg' => '註冊成功']);
+        return response(['status' => 1, 'msg' => '註冊成功'], 201);
     }
 
     public function signIn(SignInManagerRequest $request, AuthManagerService $service)
@@ -34,21 +34,21 @@ class ManagerController extends Controller
             $password = $request->input('password');
 
             if ($service->authenticate($account, $password) === false) {
-                return response(['status' => 0, 'msg' => 'account 或 password 輸入錯誤，請重新輸入']);
+                return response(['status' => 0, 'msg' => 'account 或 password 輸入錯誤，請重新輸入'], 400);
             }
 
             if ($service->checkMultipleAuthenticate($account, $password) === false) {
-                return response(['status' => 1, 'msg' => '登入成功', 'data' => ['token' => $service->show($account, $password)]]);
+                return response(['status' => 1, 'msg' => '登入成功', 'data' => ['token' => $service->show($account, $password)]], 200);
             }
 
             $token = $service->issueToken($account, $password);
         } catch (\Throwable $exception) {
             report($exception);
 
-            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員']);
+            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員'], 500);
         }
 
-        return response(['status' => 1, 'msg' => '登入成功', 'data' => ['token' => $token]]);
+        return response(['status' => 1, 'msg' => '登入成功', 'data' => ['token' => $token]], 200);
     }
 
     public function signOut(Request $request, AuthManagerService $service)
@@ -59,8 +59,8 @@ class ManagerController extends Controller
         } catch (\Throwable $exception) {
             report($exception);
 
-            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員']);
+            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員'], 500);
         }
-        return response(['status' => 1, 'msg' => '登出成功']);
+        return response(['status' => 1, 'msg' => '登出成功'], 200);
     }
 }

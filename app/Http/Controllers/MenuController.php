@@ -25,10 +25,10 @@ class MenuController extends Controller
         } catch (\Throwable $exception) {
             report($exception);
 
-            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員']);
+            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員'], 500);
         }
 
-        return response(['status' => 1, 'msg' => '菜單刪除成功']);
+        return response(['status' => 1, 'msg' => '菜單刪除成功'], 204);
     }
 
     public function index()
@@ -38,9 +38,9 @@ class MenuController extends Controller
         } catch (\Throwable $exception) {
             report($exception);
 
-            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員']);
+            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員'], 500);
         }
-        return response(['status' => 1, 'msg' => '成功取得菜單內容', 'data' => $menus]);
+        return response(['status' => 1, 'msg' => '成功取得菜單內容', 'data' => $menus], 200);
     }
 
     public function store(StoreMenuRequest $request)
@@ -54,10 +54,10 @@ class MenuController extends Controller
         } catch (\Throwable $exception) {
             report($exception);
 
-            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員']);
+            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員'], 500);
         }
 
-        return response(['status' => 1, 'msg' => '菜單建立成功']);
+        return response(['status' => 1, 'msg' => '菜單建立成功'], 201);
     }
 
     public function update(UpdateMenuRequest $request)
@@ -72,9 +72,9 @@ class MenuController extends Controller
         } catch (\Throwable $exception) {
             report($exception);
 
-            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員']);
+            return response(['status' => 0, 'msg' => '發生不可預期的錯誤，請聯絡開發人員'], 500);
         }
 
-        return response(['status' => 1, 'msg' => '菜單編輯成功']);
+        return response(['status' => 1, 'msg' => '菜單編輯成功'], 201);
     }
 }
