@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ManagerLoginTokens', function (Blueprint $table) {
+        Schema::create('managerlogintokens', function (Blueprint $table) {
             $table->integerIncrements('id');
             $table->char('token', 32)->unique();
             $table->char('managerID', 32);
-            $table->foreign('managerID')->references('managerID')->on('Managers');
+            $table->foreign('managerID')->references('managerID')->on('managers');
             $table->string('createdTime', 10);
             $table->string('updatedTime', 10);
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ManagerLoginTokens');
+        Schema::dropIfExists('managerlogintokens');
     }
 };

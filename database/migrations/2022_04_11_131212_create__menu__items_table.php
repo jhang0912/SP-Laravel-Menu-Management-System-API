@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('MenuItems', function (Blueprint $table) {
+        Schema::create('menuitems', function (Blueprint $table) {
             $table->integerIncrements('id');
             $table->char('itemID', 32)->unique();
             $table->char('categoryID', 32);
-            $table->foreign('categoryID')->references('categoryID')->on('MenuCategories');
+            $table->foreign('categoryID')->references('categoryID')->on('menucategories');
             $table->string('name', 70);
             $table->unsignedInteger('price');
             $table->integer('orderBy');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('MenuItems');
+        Schema::dropIfExists('menuitems');
     }
 };

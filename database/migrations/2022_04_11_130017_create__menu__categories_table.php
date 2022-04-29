@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('MenuCategories', function (Blueprint $table) {
+        Schema::create('menucategories', function (Blueprint $table) {
             $table->integerIncrements('id');
             $table->char('categoryID', 32)->unique();
             $table->string('name', 50);
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('MenuCategories');
+        Schema::dropIfExists('menucategories');
     }
 };
